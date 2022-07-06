@@ -2,8 +2,10 @@ package com.woowahan.mailapp.presentation.view
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.woowahan.mailapp.R
@@ -39,6 +41,10 @@ class HomeActivity : AppCompatActivity() {
                 viewModel.currentFragment = HomeViewModel.SETTING
                 bindingBtns()
             }
+        }
+
+        binding.drawerBtn.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
         }
     }
 
