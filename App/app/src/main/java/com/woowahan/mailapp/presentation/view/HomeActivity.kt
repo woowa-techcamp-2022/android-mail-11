@@ -1,8 +1,9 @@
-package com.woowahan.mailapp
+package com.woowahan.mailapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.woowahan.mailapp.R
 import com.woowahan.mailapp.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {

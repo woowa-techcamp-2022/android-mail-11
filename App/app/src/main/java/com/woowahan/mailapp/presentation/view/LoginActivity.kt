@@ -1,4 +1,4 @@
-package com.woowahan.mailapp
+package com.woowahan.mailapp.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.woowahan.mailapp.R
 import com.woowahan.mailapp.databinding.ActivityLoginBinding
 import java.util.regex.Pattern
 
