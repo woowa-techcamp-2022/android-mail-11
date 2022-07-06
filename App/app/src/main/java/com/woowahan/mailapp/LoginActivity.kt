@@ -1,5 +1,6 @@
 package com.woowahan.mailapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,6 +18,12 @@ class LoginActivity : AppCompatActivity() {
 
         binding.nicknameEditText.addTextChangedListener(nicknameWatcher)
         binding.emailEditText.addTextChangedListener(emailWatcher)
+
+        binding.nextBtn.setOnClickListener {
+            val nextIntent = Intent(this, HomeActivity::class.java)
+            nextIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(nextIntent)
+        }
     }
 
     private val nicknameWatcher = object : TextWatcher {
