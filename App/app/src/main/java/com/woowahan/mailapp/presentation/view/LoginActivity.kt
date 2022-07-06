@@ -1,4 +1,4 @@
-package com.woowahan.mailapp.presentation
+package com.woowahan.mailapp.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
