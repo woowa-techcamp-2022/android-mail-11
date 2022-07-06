@@ -46,6 +46,8 @@ class HomeActivity : AppCompatActivity() {
         binding.drawerBtn.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
+
+        supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, MailFragment()).commit()
     }
 
     private fun bindingBtns() {
