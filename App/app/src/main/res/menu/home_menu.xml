@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bridgePassClickArea"
+        android:icon="@drawable/id_gray"
+        android:title="Show BRIDGE Pass" />
+    <item
+        android:id="@+id/suggestionClickArea"
+        android:icon="@drawable/shared_feedback"
+        android:title="Share feedback" />
+    <item
+        android:id="@+id/inviteFriendsClickArea"
+        android:icon="@drawable/invite_friends"
+        android:title="Invite Friends" />
+</menu>
