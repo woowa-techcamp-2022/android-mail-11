@@ -45,10 +45,14 @@ class LoginActivity : AppCompatActivity() {
             if (isValidNickname(nickname)) {
                 binding.nicknameInputLayout.isEndIconVisible = false
                 binding.nicknameInputLayout.error = null
-
-            } else {
-                binding.nicknameInputLayout.isEndIconVisible = true
-                binding.nicknameInputLayout.error = "닉네임은 영문과 숫자를 결합한 4~12자로 입력해주세요."
+            } else if (s != null) {
+                if (s.isEmpty()) {
+                    binding.nicknameInputLayout.isEndIconVisible = false
+                    binding.nicknameInputLayout.error = null
+                } else {
+                    binding.nicknameInputLayout.isEndIconVisible = true
+                    binding.nicknameInputLayout.error = "닉네임은 영문과 숫자를 결합한 4~12자로 입력해주세요."
+                }
             }
 
             binding.nextBtn.isEnabled =
@@ -71,10 +75,14 @@ class LoginActivity : AppCompatActivity() {
             if (isValidEmail(email)) {
                 binding.emailInputLayout.isEndIconVisible = false
                 binding.emailInputLayout.error = null
-
-            } else {
-                binding.emailInputLayout.isEndIconVisible = true
-                binding.emailInputLayout.error = "올바른 이메일 형식이 아닙니다."
+            } else if (s != null) {
+                if (s.isEmpty()) {
+                    binding.emailInputLayout.isEndIconVisible = false
+                    binding.emailInputLayout.error = null
+                } else {
+                    binding.emailInputLayout.isEndIconVisible = true
+                    binding.emailInputLayout.error = "올바른 이메일 형식이 아닙니다."
+                }
             }
 
             binding.nextBtn.isEnabled =
