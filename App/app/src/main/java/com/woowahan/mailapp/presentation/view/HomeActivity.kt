@@ -18,6 +18,7 @@ class HomeActivity : AppCompatActivity() {
     private var COLOR_GRAY = 0
 
     private val mailFragment = MailFragment()
+    private val settingFragment = SettingFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,14 +59,24 @@ class HomeActivity : AppCompatActivity() {
         binding.mailBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.MAIL) {
                 viewModel.currentFragment = HomeViewModel.MAIL
+                binding.fragmentNameTextView.text = "W mail"
                 bindingBottomBtns()
+
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.homeFrameLayout, mailFragment
+                ).commit()
             }
         }
 
         binding.settingBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.SETTING) {
                 viewModel.currentFragment = HomeViewModel.SETTING
+                binding.fragmentNameTextView.text = "Setting"
                 bindingBottomBtns()
+
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.homeFrameLayout, settingFragment
+                ).commit()
             }
         }
 
@@ -121,7 +132,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
-        }else{
+        } else {
             super.onBackPressed()
         }
     }
