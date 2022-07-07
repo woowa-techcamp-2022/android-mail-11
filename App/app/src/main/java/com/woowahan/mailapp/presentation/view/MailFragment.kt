@@ -80,9 +80,9 @@ class MailFragment : Fragment() {
             "abcdefghijlasefkoasdfofa aoerawokra se",
             "5기 합격하신 것을 진심으로 축하드립니다.",
             "Someone send a message to me. There are 13 unread messages in slack.",
-            "",
-            "",
-            "",
+            "hello",
+            "nice to ",
+            "meet you~",
             "Hi Byun, How you doing today? I'm in Chicago now"
         )
 
