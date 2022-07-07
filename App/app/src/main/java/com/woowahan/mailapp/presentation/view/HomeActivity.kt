@@ -2,11 +2,15 @@ package com.woowahan.mailapp.presentation.view
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.navigation.NavigationBarView
 import com.woowahan.mailapp.R
 import com.woowahan.mailapp.databinding.ActivityHomeBinding
 import com.woowahan.mailapp.presentation.viewModel.HomeViewModel
@@ -29,7 +33,6 @@ class HomeActivity : AppCompatActivity() {
         COLOR_GRAY = ContextCompat.getColor(this, R.color.gray)
         COLOR_PURPLE = ContextCompat.getColor(this, R.color.purple_500)
 
-        bindingBottomBtns()
         bindingDrawerBtns()
         binding.homeNavigationView.itemIconTintList = null
         binding.homeNavigationView.bringToFront()
@@ -49,36 +52,9 @@ class HomeActivity : AppCompatActivity() {
             changeMailType()
         }
 
-        binding.mailBtn?.setOnClickListener {
-            if (viewModel.currentFragment != HomeViewModel.MAIL) {
-                viewModel.currentFragment = HomeViewModel.MAIL
-                changeFragment()
-            }
-        }
+        binding.bottomNavigationView?.setOnItemSelectedListener(navigationOnSelectedListener)
 
-        binding.settingBtn?.setOnClickListener {
-            if (viewModel.currentFragment != HomeViewModel.SETTING) {
-                viewModel.currentFragment = HomeViewModel.SETTING
-                changeFragment()
-            }
-        }
-
-        binding.navigationRailView?.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.mailBtn -> {
-                    viewModel.currentFragment = HomeViewModel.MAIL
-                    changeFragment()
-                    true
-                }
-                R.id.settingBtn -> {
-                    viewModel.currentFragment = HomeViewModel.SETTING
-                    viewModel.currentMailType = HomeViewModel.PRIMARY
-                    changeFragment()
-                    true
-                }
-                else -> false
-            }
-        }
+        binding.navigationRailView?.setOnItemSelectedListener(navigationOnSelectedListener)
 
         binding.drawerBtn.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -92,8 +68,28 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private val navigationOnSelectedListener =
+        NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.mailBtn -> {
+                    viewModel.currentFragment = HomeViewModel.MAIL
+                    viewModel.currentMailType = HomeViewModel.PRIMARY
+                    changeFragment()
+                    true
+                }
+                R.id.settingBtn -> {
+                    viewModel.currentFragment = HomeViewModel.SETTING
+                    viewModel.currentMailType = HomeViewModel.PRIMARY
+                    changeFragment()
+                    true
+                }
+            }
+            true
+        }
+
     fun changeMailType() {
         bindingDrawerBtns()
+        binding.bottomNavigationView?.selectedItemId = R.id.mailBtn
         binding.navigationRailView?.selectedItemId = R.id.mailBtn
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         mailFragment.updateMail()
@@ -106,7 +102,6 @@ class HomeActivity : AppCompatActivity() {
 
     fun changeFragment() {
         binding.fragmentNameTextView.text = viewModel.currentFragment
-        bindingBottomBtns()
 
         if (viewModel.currentFragment == HomeViewModel.MAIL) {
             supportFragmentManager.beginTransaction().replace(
@@ -134,24 +129,6 @@ class HomeActivity : AppCompatActivity() {
                     ColorStateList.valueOf(COLOR_GRAY)
                 buttons[idx].setTextColor(COLOR_GRAY)
             }
-        }
-    }
-
-    private fun bindingBottomBtns() {
-        if (viewModel.currentFragment == HomeViewModel.MAIL) {
-            binding.mailText?.setTextColor(COLOR_PURPLE)
-            binding.mailIcon?.imageTintList =
-                ColorStateList.valueOf(COLOR_PURPLE)
-            binding.settingText?.setTextColor(COLOR_GRAY)
-            binding.settingIcon?.imageTintList =
-                ColorStateList.valueOf(COLOR_GRAY)
-        } else if (viewModel.currentFragment == HomeViewModel.SETTING) {
-            binding.settingIcon?.imageTintList =
-                ColorStateList.valueOf(COLOR_PURPLE)
-            binding.settingText?.setTextColor(COLOR_PURPLE)
-            binding.mailText?.setTextColor(COLOR_GRAY)
-            binding.mailIcon?.imageTintList =
-                ColorStateList.valueOf(COLOR_GRAY)
         }
     }
 
