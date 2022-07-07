@@ -9,11 +9,8 @@ import com.woowahan.mailapp.databinding.MailItemBinding
 import com.woowahan.mailapp.model.Mail
 import java.util.regex.Pattern
 
-class MailAdapter(private var mails: List<Mail>) : RecyclerView.Adapter<MailAdapter.ViewHolder>() {
-
-    fun updateMails(newMails: List<Mail>) {
-        mails = newMails
-    }
+class MailAdapter : RecyclerView.Adapter<MailAdapter.ViewHolder>() {
+    lateinit var mails: List<Mail>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MailItemBinding.inflate(
@@ -49,7 +46,7 @@ class MailAdapter(private var mails: List<Mail>) : RecyclerView.Adapter<MailAdap
             binding.mailTitleTextView.text = mail.title
             binding.mailContentTextView.text = mail.content
 
-                if (Pattern.matches("^[a-zA-Z]*$", mail.sender[0].toString())) {
+            if (Pattern.matches("^[a-zA-Z]*$", mail.sender[0].toString())) {
                 binding.defaultProfileImageView.visibility = View.GONE
                 binding.senderInitialTextView.text = mail.sender[0].toString()
                 binding.profileCardView.setCardBackgroundColor(BG_COLORS[BG_COLORS.indices.random()])

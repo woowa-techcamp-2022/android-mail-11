@@ -14,7 +14,7 @@ class MailFragment : Fragment() {
     private lateinit var binding: FragmentMailBinding
     private val viewModel by activityViewModels<HomeViewModel>()
 
-    private lateinit var mailAdapter: MailAdapter
+    private val mailAdapter = MailAdapter()
     private val types = arrayOf("primary", "social", "promotions")
 
     override fun onCreateView(
@@ -27,14 +27,12 @@ class MailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mailAdapter = MailAdapter(createDummyData(viewModel.currentMailType))
-
         binding.mailRecyclerView.adapter = mailAdapter
         updateMail()
     }
 
     fun updateMail() {
-        mailAdapter.updateMails(createDummyData(viewModel.currentMailType))
+        mailAdapter.mails = (createDummyData(viewModel.currentMailType))
         mailAdapter.notifyDataSetChanged()
         binding.mailTypeTextView.text = types[viewModel.currentMailType]
     }

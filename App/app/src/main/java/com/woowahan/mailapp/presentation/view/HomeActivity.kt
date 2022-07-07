@@ -73,7 +73,13 @@ class HomeActivity : AppCompatActivity() {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, mailFragment).commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, mailFragment)
+                .commit()
+        } else {
+            supportFragmentManager.beginTransaction().replace(R.id.homeFrameLayout, mailFragment)
+                .commit()
+        }
     }
 
     private fun bindingDrawerBtns() {
