@@ -59,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
         binding.mailBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.MAIL) {
                 viewModel.currentFragment = HomeViewModel.MAIL
-                binding.fragmentNameTextView.text = "W mail"
+                binding.fragmentNameTextView.text = HomeViewModel.MAIL
                 bindingBottomBtns()
 
                 supportFragmentManager.beginTransaction().replace(
@@ -71,7 +71,7 @@ class HomeActivity : AppCompatActivity() {
         binding.settingBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.SETTING) {
                 viewModel.currentFragment = HomeViewModel.SETTING
-                binding.fragmentNameTextView.text = "Setting"
+                binding.fragmentNameTextView.text = HomeViewModel.SETTING
                 bindingBottomBtns()
 
                 supportFragmentManager.beginTransaction().replace(
