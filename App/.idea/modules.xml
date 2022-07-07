@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MailApp.iml" filepath="$PROJECT_DIR$/.idea/modules/MailApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MailApp.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MailApp.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MailApp.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MailApp.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MailApp.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MailApp.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MailApp.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MailApp.app.unitTest.iml" />
+    </modules>
+  </component>
+</project>
