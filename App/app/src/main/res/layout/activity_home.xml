@@ -14,7 +14,7 @@
             android:id="@+id/homeNavigationView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="start">
+            android:layout_gravity="end">
 
             <LinearLayout
                 android:layout_width="match_parent"
