@@ -36,30 +36,22 @@ class HomeActivity : AppCompatActivity() {
 
         binding.primaryBtn.setOnClickListener {
             viewModel.currentMailType = HomeViewModel.PRIMARY
-            bindingDrawerBtns()
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            mailFragment.updateMail()
-
+            changeMailType()
         }
 
         binding.socialBtn.setOnClickListener {
             viewModel.currentMailType = HomeViewModel.SOCIAL
-            bindingDrawerBtns()
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            mailFragment.updateMail()
+            changeMailType()
         }
 
         binding.promotionsBtn.setOnClickListener {
             viewModel.currentMailType = HomeViewModel.PROMOTIONS
-            bindingDrawerBtns()
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            mailFragment.updateMail()
+            changeMailType()
         }
 
         binding.mailBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.MAIL) {
                 viewModel.currentFragment = HomeViewModel.MAIL
-
                 changeFragment()
             }
         }
@@ -79,6 +71,17 @@ class HomeActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, mailFragment)
                 .commit()
         } else {
+            changeFragment()
+        }
+    }
+
+    fun changeMailType() {
+        bindingDrawerBtns()
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        mailFragment.updateMail()
+
+        if (viewModel.currentFragment == HomeViewModel.SETTING) {
+            viewModel.currentFragment = HomeViewModel.MAIL
             changeFragment()
         }
     }
