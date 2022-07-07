@@ -72,6 +72,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.settingBtn -> {
                     viewModel.currentFragment = HomeViewModel.SETTING
+                    viewModel.currentMailType = HomeViewModel.PRIMARY
                     changeFragment()
                     true
                 }
@@ -93,6 +94,7 @@ class HomeActivity : AppCompatActivity() {
 
     fun changeMailType() {
         bindingDrawerBtns()
+        binding.navigationRailView?.selectedItemId = R.id.mailBtn
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         mailFragment.updateMail()
 
