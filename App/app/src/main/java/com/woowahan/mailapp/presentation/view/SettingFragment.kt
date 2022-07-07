@@ -2,15 +2,12 @@ package com.woowahan.mailapp.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.woowahan.mailapp.R
 import com.woowahan.mailapp.databinding.FragmentSettingBinding
 import com.woowahan.mailapp.model.ME
 import com.woowahan.mailapp.presentation.viewModel.HomeViewModel
@@ -34,6 +31,8 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as HomeActivity).resetMailType()
+
         binding.emailTextView.text = ME.email
         binding.nickNameTextView.text = ME.nickname
     }
@@ -43,7 +42,7 @@ class SettingFragment : Fragment() {
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 viewModel.currentFragment = HomeViewModel.MAIL
-                viewModel.currentMailType = HomeViewModel.PRIMARY
+                (requireActivity() as HomeActivity).resetMailType()
                 (requireActivity() as HomeActivity).changeFragment()
             }
         }
