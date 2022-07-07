@@ -112,9 +112,7 @@ class MailFragment : Fragment() {
                         ActivityCompat.finishAffinity(activity!!)
                     }
                 } else {
-                    viewModel.currentMailType = HomeViewModel.PRIMARY
-                    (requireActivity() as HomeActivity).bindingDrawerBtns()
-                    updateMail()
+                    (requireActivity() as HomeActivity).resetMailType(isNavigationNeedInit = false)
                 }
             }
         }

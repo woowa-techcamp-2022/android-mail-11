@@ -43,7 +43,7 @@ class SettingFragment : Fragment() {
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 viewModel.currentFragment = HomeViewModel.MAIL
-                viewModel.currentMailType = HomeViewModel.PRIMARY
+                (requireActivity() as HomeActivity).resetMailType(isNavigationNeedInit = true)
                 (requireActivity() as HomeActivity).changeFragment()
             }
         }

@@ -8,86 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.view.HomeActivity"
-        tools:openDrawer="end">
+        tools:openDrawer="start">
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/homeNavigationView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="start">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:padding="7dp"
-                    android:text="W mail"
-                    android:textSize="26sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/primaryBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="2dp"
-                        android:gravity="center_vertical|left"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="10dp"
-                        android:text="  Primary"
-                        android:textSize="16sp"
-                        app:drawableLeftCompat="@drawable/ic_baseline_priority_high_24" />
-
-                    <TextView
-                        android:id="@+id/socialBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="2dp"
-                        android:gravity="center_vertical|left"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="10dp"
-                        android:text="  Social"
-                        android:textSize="16sp"
-                        app:drawableLeftCompat="@drawable/ic_baseline_people_outline_24" />
-
-                    <TextView
-                        android:id="@+id/promotionsBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="2dp"
-                        android:gravity="center_vertical|left"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="10dp"
-                        android:text="  Promotions"
-                        android:textSize="16sp"
-                        app:drawableLeftCompat="@drawable/ic_baseline_label_24" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.navigation.NavigationView>
+            android:layout_gravity="start"
+            app:headerLayout="@layout/home_drawer_header"
+            app:menu="@menu/drawer_menu" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
