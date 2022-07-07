@@ -11,6 +11,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.activityViewModels
 import com.woowahan.mailapp.R
+import com.woowahan.mailapp.databinding.FragmentSettingBinding
+import com.woowahan.mailapp.model.ME
 import com.woowahan.mailapp.presentation.viewModel.HomeViewModel
 
 class SettingFragment : Fragment() {
@@ -19,11 +21,21 @@ class SettingFragment : Fragment() {
 
     private val viewModel by activityViewModels<HomeViewModel>()
 
+    private lateinit var binding: FragmentSettingBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+        binding = FragmentSettingBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.emailTextView.text = ME.email
+        binding.nickNameTextView.text = ME.nickname
     }
 
     override fun onAttach(context: Context) {
