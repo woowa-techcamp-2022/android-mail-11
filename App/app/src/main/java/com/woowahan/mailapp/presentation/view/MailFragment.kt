@@ -15,6 +15,7 @@ class MailFragment : Fragment() {
     private val viewModel by activityViewModels<HomeViewModel>()
 
     private lateinit var mailAdapter: MailAdapter
+    private val types = arrayOf("primary", "social", "promotions")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,12 +27,19 @@ class MailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mailAdapter = MailAdapter(createDummyData(viewModel.currentMailType))
 
-        mailAdapter = MailAdapter(createDummyData(viewModel.currentFragment))
         binding.mailRecyclerView.adapter = mailAdapter
+        updateMail()
     }
 
-    private fun createDummyData(type: String): ArrayList<Mail> {
+    fun updateMail() {
+        mailAdapter.updateMails(createDummyData(viewModel.currentMailType))
+        mailAdapter.notifyDataSetChanged()
+        binding.mailTypeTextView.text = types[viewModel.currentMailType]
+    }
+
+    private fun createDummyData(typeId: Int): ArrayList<Mail> {
         val dummy = ArrayList<Mail>()
 
         val names = arrayOf(
@@ -74,7 +82,7 @@ class MailFragment : Fragment() {
         )
 
         for (i in 0 until names.size) {
-            val dummyMail = Mail(names[i], "[${type}] ${title[i]}", contents[i])
+            val dummyMail = Mail(names[i], "[${types[typeId]}] ${title[i]}", contents[i])
             dummy.add(dummyMail)
         }
 

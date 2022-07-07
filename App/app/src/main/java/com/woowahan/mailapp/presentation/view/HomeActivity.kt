@@ -17,6 +17,8 @@ class HomeActivity : AppCompatActivity() {
     private var COLOR_PURPLE = 0
     private var COLOR_GRAY = 0
 
+    private val mailFragment = MailFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -35,18 +37,22 @@ class HomeActivity : AppCompatActivity() {
             viewModel.currentMailType = HomeViewModel.PRIMARY
             bindingDrawerBtns()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+            mailFragment.updateMail()
+
         }
 
         binding.socialBtn.setOnClickListener {
             viewModel.currentMailType = HomeViewModel.SOCIAL
             bindingDrawerBtns()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+            mailFragment.updateMail()
         }
 
         binding.promotionsBtn.setOnClickListener {
             viewModel.currentMailType = HomeViewModel.PROMOTIONS
             bindingDrawerBtns()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+            mailFragment.updateMail()
         }
 
         binding.mailBtn.setOnClickListener {
@@ -67,7 +73,7 @@ class HomeActivity : AppCompatActivity() {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, MailFragment()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, mailFragment).commit()
     }
 
     private fun bindingDrawerBtns() {
