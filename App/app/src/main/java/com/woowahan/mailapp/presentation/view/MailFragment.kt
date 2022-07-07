@@ -80,14 +80,22 @@ class MailFragment : Fragment() {
             "abcdefghijlasefkoasdfofa aoerawokra se",
             "5기 합격하신 것을 진심으로 축하드립니다.",
             "Someone send a message to me. There are 13 unread messages in slack.",
-            "",
-            "",
-            "",
+            "hello",
+            "nice to ",
+            "meet you~",
             "Hi Byun, How you doing today? I'm in Chicago now"
         )
 
-        for (i in 0 until names.size) {
-            val dummyMail = Mail(names[i], "[${types[typeId]}] ${title[i]}", contents[i])
+        val shuffledIdx = names.indices.shuffled()
+
+        for (i in 0 until shuffledIdx.size) {
+            val dummyMail =
+                Mail(
+                    names[shuffledIdx[i]],
+                    "[${types[typeId]}] ${title[shuffledIdx[i]]}",
+                    contents[shuffledIdx[i]],
+                    "2022-07-${String.format("%02d", 11 - i)}"
+                )
             dummy.add(dummyMail)
         }
 

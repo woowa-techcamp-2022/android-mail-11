@@ -45,6 +45,7 @@ class MailAdapter : RecyclerView.Adapter<MailAdapter.ViewHolder>() {
             binding.senderNameTextView.text = mail.sender
             binding.mailTitleTextView.text = mail.title
             binding.mailContentTextView.text = mail.content
+            binding.mailDateTextView.text = mail.date
 
             if (Pattern.matches("^[a-zA-Z]*$", mail.sender[0].toString())) {
                 binding.defaultProfileImageView.visibility = View.GONE

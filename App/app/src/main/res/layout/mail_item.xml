@@ -82,5 +82,19 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mailTitleTextView" />
 
+
+        <TextView
+            android:id="@+id/mailDateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toRightOf="@id/profileCardView"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mailContentTextView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
