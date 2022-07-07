@@ -1,10 +1,14 @@
 package com.woowahan.mailapp.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.activityViewModels
 import com.woowahan.mailapp.databinding.FragmentMailBinding
 import com.woowahan.mailapp.model.Mail
@@ -16,6 +20,9 @@ class MailFragment : Fragment() {
 
     private val mailAdapter = MailAdapter()
     private val types = arrayOf("primary", "social", "promotions")
+
+    private lateinit var callback: OnBackPressedCallback
+    private var backKeyPressedTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,5 +92,37 @@ class MailFragment : Fragment() {
         }
 
         return dummy
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (viewModel.currentMailType == HomeViewModel.PRIMARY) {
+                    if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+                        backKeyPressedTime = System.currentTimeMillis()
+                        Toast.makeText(
+                            activity!!,
+                            "Press Back button again.",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        return
+                    } else {
+                        ActivityCompat.finishAffinity(activity!!)
+                    }
+                } else {
+                    viewModel.currentMailType = HomeViewModel.PRIMARY
+                    (requireActivity() as HomeActivity).bindingDrawerBtns()
+                    updateMail()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 }

@@ -82,7 +82,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindingDrawerBtns() {
+    fun bindingDrawerBtns() {
         val buttons = arrayOf(binding.primaryBtn, binding.socialBtn, binding.promotionsBtn)
 
         for (idx in buttons.indices) {
@@ -115,6 +115,14 @@ class HomeActivity : AppCompatActivity() {
             binding.mailText.setTextColor(COLOR_GRAY)
             binding.mailIcon.imageTintList =
                 ColorStateList.valueOf(COLOR_GRAY)
+        }
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }else{
+            super.onBackPressed()
         }
     }
 }
