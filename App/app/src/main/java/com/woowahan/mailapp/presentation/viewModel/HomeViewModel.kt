@@ -7,9 +7,9 @@ class HomeViewModel : ViewModel() {
         val MAIL = "mail"
         val SETTING = "setting"
 
-        val PRIMARY = "primary"
-        val SOCIAL = "social"
-        val PROMOTIONS = "promotions"
+        val PRIMARY = 0
+        val SOCIAL = 1
+        val PROMOTIONS = 2
     }
 
     var currentFragment = MAIL

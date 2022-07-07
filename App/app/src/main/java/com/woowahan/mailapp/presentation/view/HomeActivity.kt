@@ -2,7 +2,6 @@ package com.woowahan.mailapp.presentation.view
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -27,19 +26,40 @@ class HomeActivity : AppCompatActivity() {
         COLOR_GRAY = ContextCompat.getColor(this, R.color.gray)
         COLOR_PURPLE = ContextCompat.getColor(this, R.color.purple_500)
 
-        bindingBtns()
+        bindingBottomBtns()
+        bindingDrawerBtns()
+        binding.homeNavigationView.itemIconTintList = null
+        binding.homeNavigationView.bringToFront()
+
+        binding.primaryBtn.setOnClickListener {
+            viewModel.currentMailType = HomeViewModel.PRIMARY
+            bindingDrawerBtns()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+        binding.socialBtn.setOnClickListener {
+            viewModel.currentMailType = HomeViewModel.SOCIAL
+            bindingDrawerBtns()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+        binding.promotionsBtn.setOnClickListener {
+            viewModel.currentMailType = HomeViewModel.PROMOTIONS
+            bindingDrawerBtns()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
 
         binding.mailBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.MAIL) {
                 viewModel.currentFragment = HomeViewModel.MAIL
-                bindingBtns()
+                bindingBottomBtns()
             }
         }
 
         binding.settingBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.SETTING) {
                 viewModel.currentFragment = HomeViewModel.SETTING
-                bindingBtns()
+                bindingBottomBtns()
             }
         }
 
@@ -50,7 +70,25 @@ class HomeActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, MailFragment()).commit()
     }
 
-    private fun bindingBtns() {
+    private fun bindingDrawerBtns() {
+        val buttons = arrayOf(binding.primaryBtn, binding.socialBtn, binding.promotionsBtn)
+
+        for (idx in buttons.indices) {
+            if (idx == viewModel.currentMailType) {
+                buttons[idx].setBackgroundResource(R.drawable.home_drawer_btn_selected)
+                buttons[idx].compoundDrawableTintList =
+                    ColorStateList.valueOf(COLOR_PURPLE)
+                buttons[idx].setTextColor(COLOR_PURPLE)
+            } else {
+                buttons[idx].setBackgroundResource(R.drawable.home_drawer_btn_unselected)
+                buttons[idx].compoundDrawableTintList =
+                    ColorStateList.valueOf(COLOR_GRAY)
+                buttons[idx].setTextColor(COLOR_GRAY)
+            }
+        }
+    }
+
+    private fun bindingBottomBtns() {
         if (viewModel.currentFragment == HomeViewModel.MAIL) {
             binding.mailText.setTextColor(COLOR_PURPLE)
             binding.mailIcon.imageTintList =

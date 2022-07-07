@@ -27,7 +27,7 @@ class MailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mailAdapter = MailAdapter(createDummyData(viewModel.currentMailType))
+        mailAdapter = MailAdapter(createDummyData(viewModel.currentFragment))
         binding.mailRecyclerView.adapter = mailAdapter
     }
 
