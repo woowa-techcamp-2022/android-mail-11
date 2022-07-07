@@ -49,17 +49,34 @@ class HomeActivity : AppCompatActivity() {
             changeMailType()
         }
 
-        binding.mailBtn.setOnClickListener {
+        binding.mailBtn?.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.MAIL) {
                 viewModel.currentFragment = HomeViewModel.MAIL
                 changeFragment()
             }
         }
 
-        binding.settingBtn.setOnClickListener {
+        binding.settingBtn?.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.SETTING) {
                 viewModel.currentFragment = HomeViewModel.SETTING
                 changeFragment()
+            }
+        }
+
+        binding.navigationRailView?.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.mailBtn -> {
+                    viewModel.currentFragment = HomeViewModel.MAIL
+                    changeFragment()
+                    true
+                }
+                R.id.settingBtn -> {
+                    viewModel.currentFragment = HomeViewModel.SETTING
+                    viewModel.currentMailType = HomeViewModel.PRIMARY
+                    changeFragment()
+                    true
+                }
+                else -> false
             }
         }
 
@@ -77,6 +94,7 @@ class HomeActivity : AppCompatActivity() {
 
     fun changeMailType() {
         bindingDrawerBtns()
+        binding.navigationRailView?.selectedItemId = R.id.mailBtn
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         mailFragment.updateMail()
 
@@ -121,18 +139,18 @@ class HomeActivity : AppCompatActivity() {
 
     private fun bindingBottomBtns() {
         if (viewModel.currentFragment == HomeViewModel.MAIL) {
-            binding.mailText.setTextColor(COLOR_PURPLE)
-            binding.mailIcon.imageTintList =
+            binding.mailText?.setTextColor(COLOR_PURPLE)
+            binding.mailIcon?.imageTintList =
                 ColorStateList.valueOf(COLOR_PURPLE)
-            binding.settingText.setTextColor(COLOR_GRAY)
-            binding.settingIcon.imageTintList =
+            binding.settingText?.setTextColor(COLOR_GRAY)
+            binding.settingIcon?.imageTintList =
                 ColorStateList.valueOf(COLOR_GRAY)
         } else if (viewModel.currentFragment == HomeViewModel.SETTING) {
-            binding.settingIcon.imageTintList =
+            binding.settingIcon?.imageTintList =
                 ColorStateList.valueOf(COLOR_PURPLE)
-            binding.settingText.setTextColor(COLOR_PURPLE)
-            binding.mailText.setTextColor(COLOR_GRAY)
-            binding.mailIcon.imageTintList =
+            binding.settingText?.setTextColor(COLOR_PURPLE)
+            binding.mailText?.setTextColor(COLOR_GRAY)
+            binding.mailIcon?.imageTintList =
                 ColorStateList.valueOf(COLOR_GRAY)
         }
     }

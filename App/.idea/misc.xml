@@ -8,12 +8,20 @@
         <entry key="..\:/Users/Youngmu/Desktop/woowahan/android-mail-11/App/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Youngmu/Desktop/woowahan/android-mail-11/App/app/src/main/res/layout/activity_main.xml" value="0.348731884057971" />
         <entry key="app/src/main/res/drawable/home_drawer_btn_selected.xml" value="0.1865" />
+        <entry key="app/src/main/res/layout-w600dp-land/activity_home.xml" value="0.2985008818342152" />
+        <entry key="app/src/main/res/layout-w600dp/activity_home.xml" value="0.2985008818342152" />
+        <entry key="app/src/main/res/layout-w600dp/activity_login.xml" value="0.2985008818342152" />
+        <entry key="app/src/main/res/layout-w600dp/fragment_mail.xml" value="0.2985008818342152" />
+        <entry key="app/src/main/res/layout-w600dp/fragment_setting.xml" value="0.2985008818342152" />
+        <entry key="app/src/main/res/layout-w600dp/mail_item.xml" value="0.2985008818342152" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.2509057971014493" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/layout/fragment_mail.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.17395833333333333" />
         <entry key="app/src/main/res/layout/home_drawer_header.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/mail_item.xml" value="0.45" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.3515625" />
+        <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.3515625" />
       </map>
     </option>
   </component>
