@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.woowahan.mailapp.R
 import com.woowahan.mailapp.databinding.ActivityLoginBinding
+import com.woowahan.mailapp.model.ME
 import java.util.regex.Pattern
 
 class LoginActivity : AppCompatActivity() {
@@ -21,6 +22,9 @@ class LoginActivity : AppCompatActivity() {
         binding.emailEditText.addTextChangedListener(emailWatcher)
 
         binding.nextBtn.setOnClickListener {
+            ME.nickname = binding.nicknameEditText.text.toString()
+            ME.email = binding.emailEditText.text.toString()
+
             val nextIntent = Intent(this, HomeActivity::class.java)
             nextIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(nextIntent)

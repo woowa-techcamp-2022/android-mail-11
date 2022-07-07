@@ -18,6 +18,7 @@ class HomeActivity : AppCompatActivity() {
     private var COLOR_GRAY = 0
 
     private val mailFragment = MailFragment()
+    private val settingFragment = SettingFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,37 +36,30 @@ class HomeActivity : AppCompatActivity() {
 
         binding.primaryBtn.setOnClickListener {
             viewModel.currentMailType = HomeViewModel.PRIMARY
-            bindingDrawerBtns()
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            mailFragment.updateMail()
-
+            changeMailType()
         }
 
         binding.socialBtn.setOnClickListener {
             viewModel.currentMailType = HomeViewModel.SOCIAL
-            bindingDrawerBtns()
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            mailFragment.updateMail()
+            changeMailType()
         }
 
         binding.promotionsBtn.setOnClickListener {
             viewModel.currentMailType = HomeViewModel.PROMOTIONS
-            bindingDrawerBtns()
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            mailFragment.updateMail()
+            changeMailType()
         }
 
         binding.mailBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.MAIL) {
                 viewModel.currentFragment = HomeViewModel.MAIL
-                bindingBottomBtns()
+                changeFragment()
             }
         }
 
         binding.settingBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.SETTING) {
                 viewModel.currentFragment = HomeViewModel.SETTING
-                bindingBottomBtns()
+                changeFragment()
             }
         }
 
@@ -77,8 +71,33 @@ class HomeActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, mailFragment)
                 .commit()
         } else {
-            supportFragmentManager.beginTransaction().replace(R.id.homeFrameLayout, mailFragment)
-                .commit()
+            changeFragment()
+        }
+    }
+
+    fun changeMailType() {
+        bindingDrawerBtns()
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        mailFragment.updateMail()
+
+        if (viewModel.currentFragment == HomeViewModel.SETTING) {
+            viewModel.currentFragment = HomeViewModel.MAIL
+            changeFragment()
+        }
+    }
+
+    fun changeFragment() {
+        binding.fragmentNameTextView.text = viewModel.currentFragment
+        bindingBottomBtns()
+
+        if (viewModel.currentFragment == HomeViewModel.MAIL) {
+            supportFragmentManager.beginTransaction().replace(
+                R.id.homeFrameLayout, mailFragment
+            ).commit()
+        } else {
+            supportFragmentManager.beginTransaction().replace(
+                R.id.homeFrameLayout, settingFragment
+            ).commit()
         }
     }
 
@@ -121,7 +140,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
-        }else{
+        } else {
             super.onBackPressed()
         }
     }
