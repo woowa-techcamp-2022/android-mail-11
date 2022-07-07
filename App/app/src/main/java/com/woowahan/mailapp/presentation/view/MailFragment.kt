@@ -1,10 +1,14 @@
 package com.woowahan.mailapp.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.activityViewModels
 import com.woowahan.mailapp.databinding.FragmentMailBinding
 import com.woowahan.mailapp.model.Mail
@@ -14,7 +18,11 @@ class MailFragment : Fragment() {
     private lateinit var binding: FragmentMailBinding
     private val viewModel by activityViewModels<HomeViewModel>()
 
-    private lateinit var mailAdapter: MailAdapter
+    private val mailAdapter = MailAdapter()
+    private val types = arrayOf("primary", "social", "promotions")
+
+    private lateinit var callback: OnBackPressedCallback
+    private var backKeyPressedTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,12 +34,17 @@ class MailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        mailAdapter = MailAdapter(createDummyData(viewModel.currentMailType))
         binding.mailRecyclerView.adapter = mailAdapter
+        updateMail()
     }
 
-    private fun createDummyData(type: String): ArrayList<Mail> {
+    fun updateMail() {
+        mailAdapter.mails = (createDummyData(viewModel.currentMailType))
+        mailAdapter.notifyDataSetChanged()
+        binding.mailTypeTextView.text = types[viewModel.currentMailType]
+    }
+
+    private fun createDummyData(typeId: Int): ArrayList<Mail> {
         val dummy = ArrayList<Mail>()
 
         val names = arrayOf(
@@ -74,10 +87,42 @@ class MailFragment : Fragment() {
         )
 
         for (i in 0 until names.size) {
-            val dummyMail = Mail(names[i], "[${type}] ${title[i]}", contents[i])
+            val dummyMail = Mail(names[i], "[${types[typeId]}] ${title[i]}", contents[i])
             dummy.add(dummyMail)
         }
 
         return dummy
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (viewModel.currentMailType == HomeViewModel.PRIMARY) {
+                    if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+                        backKeyPressedTime = System.currentTimeMillis()
+                        Toast.makeText(
+                            activity!!,
+                            "Press Back button again.",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        return
+                    } else {
+                        ActivityCompat.finishAffinity(activity!!)
+                    }
+                } else {
+                    viewModel.currentMailType = HomeViewModel.PRIMARY
+                    (requireActivity() as HomeActivity).bindingDrawerBtns()
+                    updateMail()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 }
