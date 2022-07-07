@@ -30,7 +30,9 @@ class SettingFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-
+                viewModel.currentFragment = HomeViewModel.MAIL
+                viewModel.currentMailType = HomeViewModel.PRIMARY
+                (requireActivity() as HomeActivity).changeFragment()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
