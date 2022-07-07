@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="설정 화면"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_text"
                 android:textSize="30sp" />
 
             <LinearLayout
@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="닉네임: "
-                    android:textColor="@color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="25sp" />
 
                 <TextView
@@ -45,7 +45,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text=""
-                    android:textColor="@color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이메일: "
-                    android:textColor="@color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="25sp" />
 
                 <TextView
@@ -68,7 +68,7 @@
                     android:layout_marginStart="10dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="@color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="25sp" />
             </LinearLayout>
         </LinearLayout>
