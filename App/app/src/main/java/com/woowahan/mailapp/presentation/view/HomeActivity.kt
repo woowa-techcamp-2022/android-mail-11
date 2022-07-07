@@ -59,24 +59,15 @@ class HomeActivity : AppCompatActivity() {
         binding.mailBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.MAIL) {
                 viewModel.currentFragment = HomeViewModel.MAIL
-                binding.fragmentNameTextView.text = HomeViewModel.MAIL
-                bindingBottomBtns()
 
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.homeFrameLayout, mailFragment
-                ).commit()
+                changeFragment()
             }
         }
 
         binding.settingBtn.setOnClickListener {
             if (viewModel.currentFragment != HomeViewModel.SETTING) {
                 viewModel.currentFragment = HomeViewModel.SETTING
-                binding.fragmentNameTextView.text = HomeViewModel.SETTING
-                bindingBottomBtns()
-
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.homeFrameLayout, settingFragment
-                ).commit()
+                changeFragment()
             }
         }
 
@@ -88,8 +79,22 @@ class HomeActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, mailFragment)
                 .commit()
         } else {
-            supportFragmentManager.beginTransaction().replace(R.id.homeFrameLayout, mailFragment)
-                .commit()
+            changeFragment()
+        }
+    }
+
+    fun changeFragment() {
+        binding.fragmentNameTextView.text = viewModel.currentFragment
+        bindingBottomBtns()
+
+        if (viewModel.currentFragment == HomeViewModel.MAIL) {
+            supportFragmentManager.beginTransaction().replace(
+                R.id.homeFrameLayout, mailFragment
+            ).commit()
+        } else {
+            supportFragmentManager.beginTransaction().replace(
+                R.id.homeFrameLayout, settingFragment
+            ).commit()
         }
     }
 
