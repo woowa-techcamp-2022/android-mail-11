@@ -86,8 +86,14 @@ class MailFragment : Fragment() {
             "Hi Byun, How you doing today? I'm in Chicago now"
         )
 
-        for (i in 0 until names.size) {
-            val dummyMail = Mail(names[i], "[${types[typeId]}] ${title[i]}", contents[i])
+        for (i in names.indices) {
+            val dummyMail =
+                Mail(
+                    names[i],
+                    "[${types[typeId]}] ${title[i]}",
+                    contents[i],
+                    "2022-07-${String.format("%02d", 11 - i)}"
+                )
             dummy.add(dummyMail)
         }
 
