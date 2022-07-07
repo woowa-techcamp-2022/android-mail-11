@@ -66,7 +66,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.navigationRailView?.setOnItemSelectedListener(navigationOnSelectedListener)
 
-        binding.drawerBtn.setOnClickListener {
+        binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
     }
@@ -100,7 +100,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun changeFragment() {
-        binding.fragmentNameTextView.text = viewModel.currentFragment
+        binding.topAppBar.title = viewModel.currentFragment
 
         if (viewModel.currentFragment == HomeViewModel.MAIL) {
             supportFragmentManager.beginTransaction().replace(
