@@ -1,10 +1,6 @@
 package com.woowahan.mailapp.presentation.view
 
-import android.content.res.ColorStateList
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -32,11 +28,26 @@ class HomeActivity : AppCompatActivity() {
         mailFragment = MailFragment()
         settingFragment = SettingFragment()
 
+        supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, mailFragment)
+            .commit()
+
+        if (savedInstanceState != null) {
+            supportFragmentManager.beginTransaction().remove(mailFragment)
+            changeFragment()
+            if (viewModel.currentFragment == HomeViewModel.SETTING) {
+                binding.bottomNavigationView?.selectedItemId = R.id.settingBtn
+                binding.navigationRailView?.selectedItemId = R.id.settingBtn
+            }
+        }
+
         COLOR_GRAY = ContextCompat.getColor(this, R.color.gray)
         COLOR_PURPLE = ContextCompat.getColor(this, R.color.purple_500)
 
         binding.homeNavigationView.setNavigationItemSelectedListener {
             it.isChecked = true
+
+            viewModel.currentFragment = HomeViewModel.MAIL
+            changeFragment()
 
             when (it.itemId) {
                 R.id.primaryBtn -> viewModel.currentMailType = HomeViewModel.PRIMARY
@@ -58,13 +69,6 @@ class HomeActivity : AppCompatActivity() {
         binding.drawerBtn.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().add(R.id.homeFrameLayout, mailFragment)
-                .commit()
-        } else {
-            changeFragment()
-        }
     }
 
     private val navigationOnSelectedListener =
@@ -76,9 +80,6 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.settingBtn -> {
-                    // Setting 버튼 누를 시 메일 초기화
-                    resetMailType(isNavigationNeedInit = false)
-
                     viewModel.currentFragment = HomeViewModel.SETTING
                     changeFragment()
                     true
@@ -93,14 +94,9 @@ class HomeActivity : AppCompatActivity() {
         mailFragment.updateMail()
     }
 
-    fun resetMailType(isNavigationNeedInit: Boolean) {
+    fun resetMailType() {
         viewModel.currentMailType = HomeViewModel.PRIMARY
-        if (isNavigationNeedInit) {
-            binding.bottomNavigationView?.selectedItemId = R.id.mailBtn
-            binding.navigationRailView?.selectedItemId = R.id.mailBtn
-        }
         binding.homeNavigationView.setCheckedItem(R.id.primaryBtn)
-        mailFragment.updateMail()
     }
 
     fun changeFragment() {
