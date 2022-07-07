@@ -44,7 +44,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:text="W mail"
-                    android:textColor="@color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="22sp" />
             </LinearLayout>
 
