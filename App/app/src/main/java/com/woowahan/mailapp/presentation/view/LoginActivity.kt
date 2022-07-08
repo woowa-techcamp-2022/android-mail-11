@@ -31,6 +31,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Nickname 이 Valid 한 지 검사
+     * Nickname 이 비어 있다면 error 제거
+     */
     private val nicknameWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
@@ -61,6 +65,10 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Email 이 Valid 한 지 검사
+     * Email 이 비어있다면 error 제거
+     */
     private val emailWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
@@ -92,7 +100,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isValidEmail(email: String): Boolean {
         val pattern = android.util.Patterns.EMAIL_ADDRESS;
-
         return pattern.matcher(email).find()
     }
 
