@@ -44,6 +44,9 @@ class HomeActivity : AppCompatActivity() {
             viewModel.currentFragment = HomeViewModel.MAIL
             changeFragment()
 
+            binding.navigationRailView?.selectedItemId = R.id.mailBtn
+            binding.bottomNavigationView?.selectedItemId = R.id.mailBtn
+
             when (it.itemId) {
                 R.id.primaryBtn -> viewModel.currentMailType = HomeViewModel.PRIMARY
                 R.id.socialBtn -> viewModel.currentMailType = HomeViewModel.SOCIAL
