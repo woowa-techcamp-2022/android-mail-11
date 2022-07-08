@@ -39,9 +39,10 @@ class MailFragment : Fragment() {
     }
 
     fun updateMail() {
+        binding.mailTypeTextView.text = types[viewModel.currentMailType]
+
         mailAdapter.mails = (createDummyData(viewModel.currentMailType))
         mailAdapter.notifyDataSetChanged()
-        binding.mailTypeTextView.text = types[viewModel.currentMailType]
     }
 
     private fun createDummyData(typeId: Int): ArrayList<Mail> {
@@ -102,19 +103,23 @@ class MailFragment : Fragment() {
         return dummy
     }
 
+    /**
+     * Mail Type 이 Primary 일 때, Back button 2번 누르면 앱 종료
+     * Mail Type 이 그 외 일때, Primary 로 돌아가기
+     */
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                // Primary 일 때 종료
                 if (viewModel.currentMailType == HomeViewModel.PRIMARY) {
                     if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
                         backKeyPressedTime = System.currentTimeMillis()
                         Toast.makeText(
-                            activity!!,
-                            "Press Back button again.",
+                            requireActivity(),
+                            "Press Back button again",
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
                         return
                     } else {
                         ActivityCompat.finishAffinity(activity!!)

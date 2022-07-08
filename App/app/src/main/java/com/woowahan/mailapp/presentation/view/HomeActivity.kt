@@ -14,8 +14,6 @@ import com.woowahan.mailapp.presentation.viewModel.HomeViewModel
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var viewModel: HomeViewModel
-    private var COLOR_PURPLE = 0
-    private var COLOR_GRAY = 0
 
     private lateinit var mailFragment: MailFragment
     private lateinit var settingFragment: SettingFragment
@@ -32,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
             .commit()
 
         if (savedInstanceState != null) {
-            supportFragmentManager.beginTransaction().remove(mailFragment)
+            // 화면 회전 시 기존 Fragment 유지 및 Navigation button 유지
             changeFragment()
             if (viewModel.currentFragment == HomeViewModel.SETTING) {
                 binding.bottomNavigationView?.selectedItemId = R.id.settingBtn
@@ -40,12 +38,9 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        COLOR_GRAY = ContextCompat.getColor(this, R.color.gray)
-        COLOR_PURPLE = ContextCompat.getColor(this, R.color.purple_500)
-
         binding.homeNavigationView.setNavigationItemSelectedListener {
             it.isChecked = true
-
+            // Mail Fragment로 변경
             viewModel.currentFragment = HomeViewModel.MAIL
             changeFragment()
 
@@ -55,6 +50,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.promotionsBtn -> viewModel.currentMailType = HomeViewModel.PROMOTIONS
             }
 
+            // Mail type 변경
             changeMailType()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
@@ -63,7 +59,6 @@ class HomeActivity : AppCompatActivity() {
         binding.homeNavigationView.bringToFront()
 
         binding.bottomNavigationView?.setOnItemSelectedListener(navigationOnSelectedListener)
-
         binding.navigationRailView?.setOnItemSelectedListener(navigationOnSelectedListener)
 
         binding.topAppBar.setNavigationOnClickListener {
@@ -71,6 +66,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Navigation Menu 클릭 시 해당 Fragment 로 이동
+     */
     private val navigationOnSelectedListener =
         NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
@@ -88,17 +86,29 @@ class HomeActivity : AppCompatActivity() {
             true
         }
 
-    fun changeMailType() {
+    /**
+     * Navigation Drawer 메뉴 클릭 시 메일 변경하는 함수
+     */
+    private fun changeMailType() {
         binding.bottomNavigationView?.selectedItemId = R.id.mailBtn
         binding.navigationRailView?.selectedItemId = R.id.mailBtn
         mailFragment.updateMail()
     }
 
+    /**
+     * Setting Fragment 로 넘어갈 때,
+     * Setting Fragment 에서 Back button을 눌렀을 때
+     * 메일 타입 초기화하는 함수
+     */
     fun resetMailType() {
         viewModel.currentMailType = HomeViewModel.PRIMARY
         binding.homeNavigationView.setCheckedItem(R.id.primaryBtn)
     }
 
+
+    /**
+     * ViewModel 의 currentFragment 정보에 따라 Fragment 교체
+     */
     fun changeFragment() {
         binding.topAppBar.title = viewModel.currentFragment
 
@@ -114,6 +124,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        // Drawer 가 열려있으면 Back button 으로 닫음
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
